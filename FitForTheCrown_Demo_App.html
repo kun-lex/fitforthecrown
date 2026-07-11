@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitForTheCrown — The Adolescent Health Guide</title>
+<style>
+  :root{
+    --maroon:#3E0E0E; --maroon2:#5C1515; --maroon3:#752020;
+    --gold:#C9A24B; --gold-d:#8A6524; --cream:#F5EBD6; --pale:#F0DCA8;
+    --panel:#FBF3E4; --ink:#2B1B1B; --muted:#8a6d6d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Georgia,'Times New Roman',serif;background:radial-gradient(ellipse at 50% 20%, var(--maroon3), var(--maroon) 65%);min-height:100vh;color:var(--cream)}
+  .phone{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+  header{position:sticky;top:0;z-index:5;background:rgba(62,14,14,.96);backdrop-filter:blur(6px);border-bottom:1px solid rgba(201,162,75,.45);padding:14px 18px;display:flex;align-items:center;gap:12px}
+  .crown-badge{width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);background:var(--maroon2);display:grid;place-items:center;font-size:20px}
+  header h1{font-size:1.05rem;color:var(--gold);letter-spacing:.4px}
+  header h1 i{color:var(--cream);font-style:italic;font-weight:normal}
+  header small{display:block;font-family:Verdana,sans-serif;font-size:.58rem;letter-spacing:2.5px;color:var(--pale);margin-top:2px}
+  .hero{padding:26px 20px 8px;text-align:center}
+  .hero h2{font-size:1.45rem;color:var(--cream);line-height:1.3}
+  .hero h2 span{color:var(--gold)}
+  .hero p{font-family:Verdana,sans-serif;font-size:.78rem;color:#d9bfbf;line-height:1.6;margin:10px 4px 0}
+  .counter{margin:18px 20px;background:linear-gradient(135deg,var(--maroon2),#4a1010);border:1px solid var(--gold);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+  .counter b{font-size:1.7rem;color:var(--gold)}
+  .counter div{font-family:Verdana,sans-serif;font-size:.66rem;letter-spacing:1.5px;color:var(--pale)}
+  .bar{height:6px;background:#2c0808;border-radius:3px;margin-top:7px;overflow:hidden;width:150px}
+  .bar i{display:block;height:100%;width:37%;background:var(--gold);border-radius:3px}
+  nav.sections{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:8px 20px 20px}
+  .card{background:var(--panel);color:var(--ink);border:1.5px solid var(--gold);border-radius:14px;padding:14px 12px;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;text-align:left}
+  .card:hover,.card:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.35);outline:none}
+  .card .em{font-size:1.35rem}
+  .card h3{font-size:.9rem;color:var(--maroon2);margin-top:6px;line-height:1.25}
+  .card p{font-family:Verdana,sans-serif;font-size:.64rem;color:#6e5a5a;margin-top:4px;line-height:1.5}
+  /* Section view */
+  .view{display:none;padding:0 20px 30px}
+  .view.active{display:block}
+  .back{font-family:Verdana,sans-serif;font-size:.7rem;letter-spacing:1px;color:var(--gold);background:none;border:1px solid var(--gold-d);border-radius:20px;padding:7px 16px;cursor:pointer;margin:16px 0 14px}
+  .sheet{background:var(--panel);color:var(--ink);border:1.5px solid var(--gold);border-radius:16px;padding:20px 18px}
+  .sheet h2{color:var(--maroon2);font-size:1.2rem;margin-bottom:4px}
+  .sheet .kick{font-family:Verdana,sans-serif;font-size:.6rem;letter-spacing:2.5px;color:var(--gold-d);font-weight:bold}
+  .sheet p, .sheet li{font-family:Verdana,sans-serif;font-size:.78rem;line-height:1.65;margin-top:10px;color:var(--ink)}
+  .sheet ul{padding-left:18px}
+  .sheet li{margin-top:8px}
+  .callout{margin-top:14px;background:#fff;border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:10px;padding:12px 14px}
+  .callout b{color:var(--maroon2)}
+  .help-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed #e3d2ae;padding:10px 2px;font-family:Verdana,sans-serif;font-size:.74rem}
+  .help-row a{color:var(--maroon2);font-weight:bold;text-decoration:none;white-space:nowrap}
+  footer{margin-top:auto;text-align:center;padding:18px;border-top:1px solid rgba(201,162,75,.35)}
+  footer .tags{color:var(--gold);font-size:.85rem;letter-spacing:.5px}
+  footer p{font-family:Verdana,sans-serif;font-size:.58rem;color:var(--muted);margin-top:6px;letter-spacing:1px}
+  .sos{position:fixed;bottom:18px;right:calc(50% - 215px + 18px);background:var(--gold);color:var(--maroon);border:none;border-radius:30px;padding:12px 18px;font-family:Verdana,sans-serif;font-weight:bold;font-size:.72rem;letter-spacing:1px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+  @media (max-width:470px){.sos{right:18px}}
+  @media (prefers-reduced-motion: reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="phone">
+  <header>
+    <div class="crown-badge" aria-hidden="true">&#128081;</div>
+    <div>
+      <h1>Fit<i>for</i>TheCrown</h1>
+      <small>500 HEADS &middot; 500 CROWNS</small>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <h2>Your health. Your rights.<br><span>Your crown.</span></h2>
+      <p>The straight-talk health guide for Nigerian students aged 12&ndash;17. No shame, no rumours &mdash; just what you deserve to know.</p>
+    </section>
+
+    <div class="counter" role="status">
+      <div>
+        CROWNS DELIVERED
+        <div class="bar"><i></i></div>
+      </div>
+      <b>185 / 500</b>
+    </div>
+
+    <nav class="sections" aria-label="Guide sections">
+      <button class="card" data-view="v-body"><span class="em">&#127793;</span><h3>Your Changing Body</h3><p>Puberty explained &mdash; girls, boys, and what's normal.</p></button>
+      <button class="card" data-view="v-fuel"><span class="em">&#129385;</span><h3>Food &amp; Fitness</h3><p>Feed and move the body that carries the crown.</p></button>
+      <button class="card" data-view="v-mind"><span class="em">&#128171;</span><h3>Your Mind Matters</h3><p>Stress, sadness, exams &mdash; and what strong really means.</p></button>
+      <button class="card" data-view="v-safe"><span class="em">&#128737;</span><h3>Staying Safe</h3><p>Your body, your rights, and how to report abuse.</p></button>
+      <button class="card" data-view="v-press"><span class="em">&#128683;</span><h3>Pressure &amp; Choices</h3><p>Drugs, cults, online traps &mdash; and the power of No.</p></button>
+      <button class="card" data-view="v-repro"><span class="em">&#128218;</span><h3>Facts, Not Rumours</h3><p>Reproductive health basics every teen deserves.</p></button>
+    </nav>
+  </main>
+
+  <!-- Section views -->
+  <section class="view" id="v-body">
+    <button class="back">&#8592; ALL SECTIONS</button>
+    <div class="sheet">
+      <span class="kick">SECTION 1</span><h2>Your Changing Body</h2>
+      <p>Puberty usually starts between 8&ndash;14 for girls and 9&ndash;15 for boys. Everyone's timing is different &mdash; earlier or later than your friends is still normal.</p>
+      <ul>
+        <li><b>Girls:</b> breasts develop, hips widen, monthly periods begin. A typical cycle is 21&ndash;35 days. Periods are healthy, never shameful.</li>
+        <li><b>Boys:</b> voice deepens, rapid growth, night-time emissions are a normal part of development &mdash; not illness.</li>
+        <li><b>Everyone:</b> pimples, sweat and mood swings arrive. Bathe daily, drink water, and remember: feelings are chemical, actions are choices.</li>
+      </ul>
+      <div class="callout"><b>Rule of the crown:</b> if anything feels wrong or painful &mdash; especially period pain that stops school &mdash; tell a health worker. Asking is wisdom.</div>
+    </div>
+  </section>
+
+  <section class="view" id="v-fuel">
+    <button class="back">&#8592; ALL SECTIONS</button>
+    <div class="sheet">
+      <span class="kick">SECTION 2</span><h2>Food &amp; Fitness</h2>
+      <p>Adolescence is your biggest growth season after infancy. What you eat now builds your bones, brain and blood.</p>
+      <ul>
+        <li>Eat the rainbow you can afford: beans, eggs, fish, ugu, ewedu, fruit. Iron matters especially for girls.</li>
+        <li>Water over soft drinks &mdash; sugar crashes are real, and so are dental bills.</li>
+        <li>Move 60 minutes daily: football, dancing, skipping all count.</li>
+        <li>Sleep 8&ndash;10 hours. Your brain files what you learned in class while you sleep.</li>
+      </ul>
+      <div class="callout"><b>Watch out:</b> skipping meals to look a certain way, or energy drinks as food, damage a growing body. If eating feels like fear, talk to someone on the Help page.</div>
+    </div>
+  </section>
+
+  <section class="view" id="v-mind">
+    <button class="back">&#8592; ALL SECTIONS</button>
+    <div class="sheet">
+      <span class="kick">SECTION 3</span><h2>Your Mind Matters</h2>
+      <p>Strong people are not people without feelings &mdash; they are people who know what to do with them.</p>
+      <ul>
+        <li>Name it: &ldquo;I am anxious about WAEC&rdquo; shrinks the fear. Unnamed feelings grow.</li>
+        <li>Talk: one honest conversation beats a hundred hidden worries.</li>
+        <li>Rest from screens &mdash; comparison steals joy.</li>
+        <li>Pray, journal, walk, sing: quiet habits that reset a loud mind.</li>
+      </ul>
+      <div class="callout"><b>More than a bad week?</b> If sadness lasts most of the day for over two weeks, or you have thoughts of harming yourself &mdash; this is a health matter, like malaria, and it is treatable. Use the SOS button today, not someday. You matter more than you currently feel.</div>
+    </div>
+  </section>
+
+  <section class="view" id="v-safe">
+    <button class="back">&#8592; ALL SECTIONS</button>
+    <div class="sheet">
+      <span class="kick">SECTION 4</span><h2>Staying Safe</h2>
+      <ul>
+        <li>Your body belongs to you. Nobody &mdash; relative, teacher, neighbour, leader &mdash; may touch you in ways that feel wrong or secret.</li>
+        <li>&ldquo;This is our secret&rdquo; about touching, photos or gifts is a warning sign. Always.</li>
+        <li>Abuse is never the victim's fault. Not the clothes. Not the visit. Never.</li>
+        <li>The Child Rights Act and VAPP Act protect you. Child marriage and abuse are offences &mdash; reporting is your right.</li>
+      </ul>
+      <div class="callout"><b>If something has happened:</b> tell a trusted adult and keep telling until someone acts. After an assault, go to a hospital or Sexual Assault Referral Centre before washing &mdash; then use the SOS numbers.</div>
+    </div>
+  </section>
+
+  <section class="view" id="v-press">
+    <button class="back">&#8592; ALL SECTIONS</button>
+    <div class="sheet">
+      <span class="kick">SECTION 5</span><h2>Pressure &amp; Choices</h2>
+      <ul>
+        <li><b>Substances:</b> codeine, tramadol, cannabis and alcohol harm a developing brain faster than an adult one. Real friends accept your No the first time.</li>
+        <li><b>Cults &amp; gangs:</b> they recruit with belonging and pay with fear. The honourable exit is never entering.</li>
+        <li><b>Online:</b> never share intimate photos &mdash; of yourself or anyone. Once sent, you no longer control them, and sharing such images of minors is a serious crime.</li>
+        <li><b>Fast money:</b> your talent, compounded by patience, outruns any shortcut.</li>
+      </ul>
+      <div class="callout"><b>Crown-fit reply for pressure moments:</b> &ldquo;I'm good &mdash; my crown dey fit already.&rdquo; Then leave. You owe nobody an explanation for protecting your future.</div>
+    </div>
+  </section>
+
+  <section class="view" id="v-repro">
+    <button class="back">&#8592; ALL SECTIONS</button>
+    <div class="sheet">
+      <span class="kick">SECTION 6</span><h2>Facts, Not Rumours</h2>
+      <ul>
+        <li>Pregnancy can happen from a single act, at any time of the month, the very first time. &ldquo;Standing up&rdquo; or &ldquo;washing&rdquo; prevents nothing &mdash; myths.</li>
+        <li>STIs, including HIV, often show no symptoms at first. Testing is the only way to know &mdash; free or cheap at government health centres.</li>
+        <li>Waiting is a valid, powerful choice. Pressure itself is the red flag.</li>
+        <li>Nobody may marry you off as a child. If you or a friend faces this, it is reportable.</li>
+        <li>Teenage pregnancy is a top reason girls leave school in Nigeria. Protecting your education protects two futures.</li>
+      </ul>
+      <div class="callout"><b>Real questions deserve real answers:</b> ask a doctor, nurse, or youth-friendly clinic &mdash; not the playground.</div>
+    </div>
+  </section>
+
+  <section class="view" id="v-help">
+    <button class="back">&#8592; ALL SECTIONS</button>
+    <div class="sheet">
+      <span class="kick">NEVER ALONE</span><h2>Get Help Now</h2>
+      <p>All calls are confidential. Save these before you need them.</p>
+      <div class="help-row"><span>Emergency (police, medical)</span><a href="tel:112">112</a></div>
+      <div class="help-row"><span>NAPTIP &mdash; abuse &amp; trafficking</span><a href="tel:07030000203">0703 0000 203</a></div>
+      <div class="help-row"><span>Lagos DSVA (toll-free)</span><a href="tel:08000333333">08000 333 333</a></div>
+      <div class="help-row"><span>Mirabel Centre (LASUTH)</span><a href="tel:08155770000">0815 577 0000</a></div>
+      <div class="help-row"><span>Human Rights Commission</span><a href="tel:08000000646">0800 0000 646</a></div>
+      <div class="callout"><b>Demo note:</b> numbers verified before every release by the project team.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="tags">#FitForTheCrown &middot; #500Crowns</div>
+    <p>A KMKLC '26 CAPSTONE &middot; LEKE ADEBOYE FOUNDATION &middot; PASTORS' SEEDS FAMILY</p>
+  </footer>
+</div>
+
+<button class="sos" id="sosBtn">&#10084; GET HELP</button>
+
+<script>
+  const home = document.getElementById('home');
+  const views = document.querySelectorAll('.view');
+  function show(id){
+    views.forEach(v => v.classList.remove('active'));
+    if(id){ home.style.display='none'; document.getElementById(id).classList.add('active'); window.scrollTo({top:0}); }
+    else { home.style.display='block'; window.scrollTo({top:0}); }
+  }
+  document.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => show(c.dataset.view)));
+  document.querySelectorAll('.back').forEach(b => b.addEventListener('click', () => show(null)));
+  document.getElementById('sosBtn').addEventListener('click', () => show('v-help'));
+</script>
+</body>
+</html>
